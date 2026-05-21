@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   CopyIcon,
   DotsThreeIcon,
@@ -10,6 +10,10 @@ import {
   PencilSimpleIcon,
   PlusIcon,
   TrashIcon,
+  CaretDoubleLeftIcon,
+  CaretDoubleRightIcon,
+  CaretLeftIcon,
+  CaretRightIcon,
 } from "@phosphor-icons/react"
 import { toast } from "sonner"
 
@@ -25,7 +29,16 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination"
 import {
   Dialog,
   DialogContent,
@@ -92,6 +105,14 @@ export function EntityTable<T extends EditableRecord>({
   const [preview, setPreview] = useState<T | null>(null)
   const [deleteTarget, setDeleteTarget] = useState<T | null>(null)
 
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(5)
+
+  // Reset pagination on search query or filter changes
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [query, filter])
+
   const filtered = useMemo(() => {
     return rows.filter((row) => {
       const matchesQuery = searchKeys.some((key) =>
@@ -104,6 +125,47 @@ export function EntityTable<T extends EditableRecord>({
       return matchesQuery && matchesFilter
     })
   }, [filter, filters, query, rows, searchKeys])
+
+  const totalItems = filtered.length
+  const totalPages = Math.ceil(totalItems / pageSize) || 1
+  const activePage = Math.min(currentPage, totalPages)
+  const startIndex = (activePage - 1) * pageSize
+  const endIndex = Math.min(startIndex + pageSize, totalItems)
+
+  const paginatedItems = useMemo(() => {
+    return filtered.slice(startIndex, startIndex + pageSize)
+  }, [filtered, startIndex, pageSize])
+
+  // Handle out of bounds currentPage
+  useEffect(() => {
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages)
+    }
+  }, [currentPage, totalPages])
+
+  const getPageNumbers = () => {
+    const pages: (number | "ellipsis")[] = []
+    if (totalPages <= 5) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i)
+    } else {
+      pages.push(1)
+      if (activePage > 3) {
+        pages.push("ellipsis")
+      }
+      const start = Math.max(2, activePage - 1)
+      const end = Math.min(totalPages - 1, activePage + 1)
+      for (let i = start; i <= end; i++) {
+        if (!pages.includes(i)) pages.push(i)
+      }
+      if (activePage < totalPages - 2) {
+        pages.push("ellipsis")
+      }
+      if (!pages.includes(totalPages)) {
+        pages.push(totalPages)
+      }
+    }
+    return pages
+  }
 
   const duplicateRow = (row: T) => {
     const copy = { ...row, id: `${row.id}-copy`, title: `${row.title} Copy` } as T
@@ -178,7 +240,7 @@ export function EntityTable<T extends EditableRecord>({
               </TableRow>
             </TableHeader>
             <TableBody>
-              {filtered.map((row) => (
+              {paginatedItems.map((row) => (
                 <TableRow key={String(row.id)}>
                   {columns.map((column) => (
                     <TableCell key={String(column.key)}>
@@ -232,6 +294,109 @@ export function EntityTable<T extends EditableRecord>({
           </Empty>
         )}
       </CardContent>
+      {totalItems > 0 && (
+        <CardFooter className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-border/50">
+          <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4 text-muted-foreground">
+            <span className="text-xs">
+              Showing <span className="font-semibold text-foreground">{totalItems === 0 ? 0 : startIndex + 1}</span> to{" "}
+              <span className="font-semibold text-foreground">{endIndex}</span> of{" "}
+              <span className="font-semibold text-foreground">{totalItems}</span> entries
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs whitespace-nowrap">Rows per page:</span>
+              <Select
+                value={String(pageSize)}
+                onValueChange={(val) => {
+                  setPageSize(Number(val))
+                  setCurrentPage(1)
+                }}
+              >
+                <SelectTrigger className="h-7 w-[70px] text-xs">
+                  <SelectValue placeholder={String(pageSize)} />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectGroup>
+                    <SelectItem value="5">5</SelectItem>
+                    <SelectItem value="10">10</SelectItem>
+                    <SelectItem value="20">20</SelectItem>
+                    <SelectItem value="50">50</SelectItem>
+                  </SelectGroup>
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+
+          <Pagination className="mx-0 w-auto justify-end">
+            <PaginationContent>
+              <PaginationItem>
+                <PaginationLink
+                  aria-label="Go to first page"
+                  onClick={() => setCurrentPage(1)}
+                  disabled={activePage === 1}
+                  variant="ghost"
+                  size="icon-sm"
+                >
+                  <CaretDoubleLeftIcon className="size-3.5" />
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  aria-label="Go to previous page"
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  disabled={activePage === 1}
+                  variant="ghost"
+                  size="icon-sm"
+                >
+                  <CaretLeftIcon className="size-3.5" />
+                </PaginationLink>
+              </PaginationItem>
+
+              {getPageNumbers().map((page, index) => {
+                if (page === "ellipsis") {
+                  return (
+                    <PaginationItem key={`ellipsis-${index}`}>
+                      <PaginationEllipsis />
+                    </PaginationItem>
+                  )
+                }
+                return (
+                  <PaginationItem key={page}>
+                    <PaginationLink
+                      isActive={page === activePage}
+                      onClick={() => setCurrentPage(page)}
+                    >
+                      {page}
+                    </PaginationLink>
+                  </PaginationItem>
+                )
+              })}
+
+              <PaginationItem>
+                <PaginationLink
+                  aria-label="Go to next page"
+                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                  disabled={activePage === totalPages}
+                  variant="ghost"
+                  size="icon-sm"
+                >
+                  <CaretRightIcon className="size-3.5" />
+                </PaginationLink>
+              </PaginationItem>
+              <PaginationItem>
+                <PaginationLink
+                  aria-label="Go to last page"
+                  onClick={() => setCurrentPage(totalPages)}
+                  disabled={activePage === totalPages}
+                  variant="ghost"
+                  size="icon-sm"
+                >
+                  <CaretDoubleRightIcon className="size-3.5" />
+                </PaginationLink>
+              </PaginationItem>
+            </PaginationContent>
+          </Pagination>
+        </CardFooter>
+      )}
       <Dialog open={!!preview} onOpenChange={(open) => !open && setPreview(null)}>
         <DialogContent>
           <DialogHeader>
