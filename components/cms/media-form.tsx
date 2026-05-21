@@ -15,6 +15,9 @@ import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import type { MediaItem } from "@/lib/cms-data"
+import { ImageUpload } from "@/components/cms/image-upload"
+import { useRouter } from "next/navigation"
+import { PageHeader } from "@/components/cms/page-header"
 
 const blankMedia: MediaItem = {
   id: "med-new",
@@ -33,36 +36,20 @@ const blankMedia: MediaItem = {
 export function MediaForm({ item, mode }: { item?: MediaItem; mode: "new" | "edit" }) {
   const data = item ?? blankMedia
   const title = mode === "new" ? "Create media item" : `Edit media: ${data.title}`
+  const router = useRouter()
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-3 border-b bg-background px-4 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-6">
-        <div className="flex min-w-0 flex-col gap-1">
-          <p className="text-xs font-medium uppercase tracking-normal text-primary">Media library</p>
-          <h1 className="truncate font-heading text-xl font-semibold">{title}</h1>
-          <p className="max-w-3xl text-xs/relaxed text-muted-foreground">
-            Manage media metadata, thumbnail, article body, external link, and publish state on a dedicated page.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button variant="outline" onClick={() => toast.info("Preview opened")}>
-            <EyeIcon data-icon="inline-start" />
-            Preview
-          </Button>
-          <Button variant="outline" onClick={() => toast.success("Draft saved")}>
-            <FloppyDiskIcon data-icon="inline-start" />
-            Save Draft
-          </Button>
-          <Button onClick={() => toast.success("Media item published")}>
-            <PaperPlaneTiltIcon data-icon="inline-start" />
-            Publish
-          </Button>
-          <Button variant="ghost" render={<Link href="/media" />}>
-            <XIcon data-icon="inline-start" />
-            Cancel
-          </Button>
-        </div>
-      </div>
+      <PageHeader
+        eyebrow="Media library"
+        title={title}
+        description="Manage media metadata, thumbnail, article body, external link, and publish state on a dedicated page."
+        actions={true}
+        onPreview={() => toast.info("Preview opened")}
+        onSave={() => toast.success("Draft saved")}
+        onPublish={() => toast.success("Media item published")}
+        onCancel={() => router.push("/media")}
+      />
       <div className="grid gap-4 px-4 pb-6 xl:grid-cols-[1fr_360px] lg:px-6">
         <Card>
           <CardHeader>
@@ -99,8 +86,8 @@ export function MediaForm({ item, mode }: { item?: MediaItem; mode: "new" | "edi
                 <Textarea defaultValue={data.description} placeholder="Short media summary" />
               </Field>
               <Field>
-                <FieldLabel>Thumbnail URL/upload</FieldLabel>
-                <Input defaultValue={data.thumbnailUrl} placeholder="https://..." />
+                <FieldLabel>Media photo / Thumbnail</FieldLabel>
+                <ImageUpload defaultValue={data.thumbnailUrl} onChange={(val) => { data.thumbnailUrl = val }} aspectRatio="rectangle" />
               </Field>
               <Field>
                 <FieldLabel>Content body</FieldLabel>

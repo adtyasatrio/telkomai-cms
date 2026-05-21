@@ -24,16 +24,7 @@ export default function EventsPage() {
             { key: "published", label: "Published", type: "boolean" },
             { key: "status", label: "Status", type: "status" },
           ]}
-          fields={[
-            { key: "title", label: "Title" },
-            { key: "type", label: "Type" },
-            { key: "date", label: "Date" },
-            { key: "location", label: "Location" },
-            { key: "description", label: "Description", kind: "textarea" },
-            { key: "imageUrl", label: "Image URL/upload" },
-            { key: "featured", label: "Featured", kind: "switch" },
-            { key: "published", label: "Published status", kind: "switch" },
-          ]}
+
           filters={[
             { key: "type", label: "Type", values: ["Workshop", "Seminar", "Competition", "Showcase"] },
             { key: "status", label: "Status", values: ["Published", "Scheduled", "Draft"] },

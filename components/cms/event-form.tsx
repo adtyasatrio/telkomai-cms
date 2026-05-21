@@ -14,6 +14,9 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import type { EventItem } from "@/lib/cms-data"
+import { ImageUpload } from "@/components/cms/image-upload"
+import { useRouter } from "next/navigation"
+import { PageHeader } from "@/components/cms/page-header"
 
 const blankEvent: EventItem = {
   id: "evt-new",
@@ -32,36 +35,20 @@ const blankEvent: EventItem = {
 export function EventForm({ event, mode }: { event?: EventItem; mode: "new" | "edit" }) {
   const data = event ?? blankEvent
   const title = mode === "new" ? "Create event" : `Edit event: ${data.title}`
+  const router = useRouter()
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-col gap-3 border-b bg-background px-4 py-4 lg:flex-row lg:items-center lg:justify-between lg:px-6">
-        <div className="flex min-w-0 flex-col gap-1">
-          <p className="text-xs font-medium uppercase tracking-normal text-primary">Events</p>
-          <h1 className="truncate font-heading text-xl font-semibold">{title}</h1>
-          <p className="max-w-3xl text-xs/relaxed text-muted-foreground">
-            Manage event copy, schedule, feature placement, image, and publish state on a dedicated page.
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          <Button variant="outline" onClick={() => toast.info("Preview opened")}>
-            <EyeIcon data-icon="inline-start" />
-            Preview
-          </Button>
-          <Button variant="outline" onClick={() => toast.success("Draft saved")}>
-            <FloppyDiskIcon data-icon="inline-start" />
-            Save Draft
-          </Button>
-          <Button onClick={() => toast.success("Event published")}>
-            <PaperPlaneTiltIcon data-icon="inline-start" />
-            Publish
-          </Button>
-          <Button variant="ghost" render={<Link href="/events" />}>
-            <XIcon data-icon="inline-start" />
-            Cancel
-          </Button>
-        </div>
-      </div>
+      <PageHeader
+        eyebrow="Events"
+        title={title}
+        description="Manage event copy, schedule, feature placement, image, and publish state on a dedicated page."
+        actions={true}
+        onPreview={() => toast.info("Preview opened")}
+        onSave={() => toast.success("Draft saved")}
+        onPublish={() => toast.success("Event published")}
+        onCancel={() => router.push("/events")}
+      />
       <div className="grid gap-4 px-4 pb-6 xl:grid-cols-[1fr_360px] lg:px-6">
         <Card>
           <CardHeader>
@@ -105,8 +92,8 @@ export function EventForm({ event, mode }: { event?: EventItem; mode: "new" | "e
                 />
               </Field>
               <Field>
-                <FieldLabel>Image URL/upload</FieldLabel>
-                <Input defaultValue={data.imageUrl} placeholder="https://..." />
+                <FieldLabel>Event photo</FieldLabel>
+                <ImageUpload defaultValue={data.imageUrl} onChange={(val) => { data.imageUrl = val }} aspectRatio="rectangle" />
               </Field>
               <div className="grid gap-4 md:grid-cols-2">
                 <Field orientation="horizontal">

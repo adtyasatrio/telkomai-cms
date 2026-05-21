@@ -23,18 +23,12 @@ export default function ProgramsPage() {
             { key: "visible", label: "Visibility", type: "boolean" },
             { key: "status", label: "Status", type: "status" },
           ]}
-          fields={[
-            { key: "title", label: "Title" },
-            { key: "description", label: "Description", kind: "textarea" },
-            { key: "icon", label: "Icon name" },
-            { key: "imageUrl", label: "Image URL/upload" },
-            { key: "sortOrder", label: "Sort order", kind: "number" },
-            { key: "visible", label: "Visibility", kind: "switch" },
-          ]}
           filters={[{ key: "status", label: "Status", values: ["Published", "Draft"] }]}
           searchKeys={["title", "description", "icon"]}
           emptyTitle="No program cards found"
           addLabel="New program"
+          addHref="/programs/new"
+          editHrefBase="/programs"
         />
       </div>
     </div>

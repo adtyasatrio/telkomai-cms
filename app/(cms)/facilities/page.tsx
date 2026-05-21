@@ -23,19 +23,12 @@ export default function FacilitiesPage() {
             { key: "bookingAvailable", label: "Booking", type: "boolean" },
             { key: "status", label: "Status", type: "status" },
           ]}
-          fields={[
-            { key: "title", label: "Title" },
-            { key: "description", label: "Description", kind: "textarea" },
-            { key: "imageUrl", label: "Image URL/upload" },
-            { key: "capacity", label: "Capacity" },
-            { key: "location", label: "Location" },
-            { key: "features", label: "Features list", kind: "list" },
-            { key: "bookingAvailable", label: "Booking availability", kind: "switch" },
-          ]}
           filters={[{ key: "status", label: "Status", values: ["Published", "Draft"] }]}
           searchKeys={["title", "description", "location"]}
           emptyTitle="No facilities found"
           addLabel="New facility"
+          addHref="/facilities/new"
+          editHrefBase="/facilities"
         />
       </div>
     </div>

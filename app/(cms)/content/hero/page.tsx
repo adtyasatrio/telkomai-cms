@@ -4,6 +4,7 @@ import { useState } from "react"
 import { toast } from "sonner"
 
 import { EditorHeader } from "@/components/cms/editor-actions"
+import { ImageUpload } from "@/components/cms/image-upload"
 import { StatusBadge } from "@/components/cms/status-badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -63,8 +64,8 @@ export default function HeroEditorPage() {
                 </Field>
               </div>
               <Field>
-                <FieldLabel>Background image upload/URL</FieldLabel>
-                <Input value={hero.backgroundImage} onChange={(event) => setHero({ ...hero, backgroundImage: event.target.value })} />
+                <FieldLabel>Hero background photo</FieldLabel>
+                <ImageUpload value={hero.backgroundImage} onChange={(val) => setHero({ ...hero, backgroundImage: val })} aspectRatio="video" />
               </Field>
               <Field>
                 <FieldLabel>Facility highlights list</FieldLabel>

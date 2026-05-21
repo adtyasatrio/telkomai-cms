@@ -41,7 +41,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyTitle } from "@/components/ui/empty"
-import { Field, FieldGroup, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import {
   Select,
@@ -51,11 +50,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet"
 import { Skeleton } from "@/components/ui/skeleton"
-import { Switch } from "@/components/ui/switch"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Textarea } from "@/components/ui/textarea"
 
 type EditableRecord = Record<string, string | number | boolean | string[]>
 
@@ -65,18 +61,11 @@ type Column<T> = {
   type?: "status" | "boolean" | "list"
 }
 
-type FieldConfig<T> = {
-  key: keyof T
-  label: string
-  kind?: "text" | "textarea" | "number" | "switch" | "list"
-}
-
 export function EntityTable<T extends EditableRecord>({
   title,
   description,
   items,
   columns,
-  fields,
   filters,
   searchKeys,
   emptyTitle,
@@ -89,20 +78,17 @@ export function EntityTable<T extends EditableRecord>({
   description: string
   items: T[]
   columns: Column<T>[]
-  fields?: FieldConfig<T>[]
   filters: { key: keyof T; label: string; values: string[] }[]
   searchKeys: (keyof T)[]
   emptyTitle: string
   addLabel: string
-  addHref?: string
-  editHrefBase?: string
+  addHref: string
+  editHrefBase: string
   isLoading?: boolean
 }) {
   const [rows, setRows] = useState(items)
   const [query, setQuery] = useState("")
   const [filter, setFilter] = useState("all")
-  const [editing, setEditing] = useState<T | null>(null)
-  const [sheetOpen, setSheetOpen] = useState(false)
   const [preview, setPreview] = useState<T | null>(null)
   const [deleteTarget, setDeleteTarget] = useState<T | null>(null)
 
@@ -118,11 +104,6 @@ export function EntityTable<T extends EditableRecord>({
       return matchesQuery && matchesFilter
     })
   }, [filter, filters, query, rows, searchKeys])
-
-  const openEditor = (row?: T) => {
-    setEditing(row ?? rows[0] ?? items[0])
-    setSheetOpen(true)
-  }
 
   const duplicateRow = (row: T) => {
     const copy = { ...row, id: `${row.id}-copy`, title: `${row.title} Copy` } as T
@@ -172,17 +153,10 @@ export function EntityTable<T extends EditableRecord>({
               </SelectContent>
             </Select>
           </div>
-          {addHref ? (
-            <Button render={<Link href={addHref} />}>
-              <PlusIcon data-icon="inline-start" />
-              {addLabel}
-            </Button>
-          ) : (
-            <Button onClick={() => openEditor()}>
-              <PlusIcon data-icon="inline-start" />
-              {addLabel}
-            </Button>
-          )}
+          <Button render={<Link href={addHref} />}>
+            <PlusIcon data-icon="inline-start" />
+            {addLabel}
+          </Button>
         </div>
         {isLoading ? (
           <div className="flex flex-col gap-3">
@@ -219,17 +193,10 @@ export function EntityTable<T extends EditableRecord>({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuGroup>
-                          {editHrefBase ? (
-                            <DropdownMenuItem render={<Link href={`${editHrefBase}/${row.id}/edit`} />}>
-                              <PencilSimpleIcon />
-                              Edit
-                            </DropdownMenuItem>
-                          ) : (
-                            <DropdownMenuItem onClick={() => openEditor(row)}>
-                              <PencilSimpleIcon />
-                              Edit
-                            </DropdownMenuItem>
-                          )}
+                          <DropdownMenuItem render={<Link href={`${editHrefBase}/${row.id}/edit`} />}>
+                            <PencilSimpleIcon />
+                            Edit
+                          </DropdownMenuItem>
                           <DropdownMenuItem onClick={() => setPreview(row)}>
                             <MagnifyingGlassIcon />
                             Preview
@@ -260,54 +227,11 @@ export function EntityTable<T extends EditableRecord>({
               <EmptyDescription>Adjust search filters or create a new entry.</EmptyDescription>
             </EmptyHeader>
             <EmptyContent>
-              {addHref ? (
-                <Button render={<Link href={addHref} />}>{addLabel}</Button>
-              ) : (
-                <Button onClick={() => openEditor()}>{addLabel}</Button>
-              )}
+              <Button render={<Link href={addHref} />}>{addLabel}</Button>
             </EmptyContent>
           </Empty>
         )}
       </CardContent>
-      <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
-        <SheetContent className="w-full overflow-y-auto sm:max-w-xl">
-          <SheetHeader>
-            <SheetTitle>Edit {title}</SheetTitle>
-            <SheetDescription>Mock form fields mirror the future content API shape.</SheetDescription>
-          </SheetHeader>
-          {editing ? (
-            <div className="px-4">
-              <FieldGroup>
-                {(fields ?? []).map((field) => (
-                  <Field key={String(field.key)}>
-                    <FieldLabel>{field.label}</FieldLabel>
-                    <FieldControl item={editing} field={field} />
-                  </Field>
-                ))}
-              </FieldGroup>
-            </div>
-          ) : null}
-          <SheetFooter>
-            <Button
-              onClick={() => {
-                setSheetOpen(false)
-                toast.success("Draft saved")
-              }}
-            >
-              Save Draft
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setSheetOpen(false)
-                toast.success("Published")
-              }}
-            >
-              Publish
-            </Button>
-          </SheetFooter>
-        </SheetContent>
-      </Sheet>
       <Dialog open={!!preview} onOpenChange={(open) => !open && setPreview(null)}>
         <DialogContent>
           <DialogHeader>
@@ -359,28 +283,4 @@ function CellValue({ value, type }: { value: unknown; type?: Column<EditableReco
   }
 
   return <span>{String(value)}</span>
-}
-
-function FieldControl<T extends EditableRecord>({
-  item,
-  field,
-}: {
-  item: T
-  field: FieldConfig<T>
-}) {
-  const value = item[field.key]
-
-  if (field.kind === "textarea") {
-    return <Textarea defaultValue={String(value)} />
-  }
-
-  if (field.kind === "switch") {
-    return <Switch defaultChecked={Boolean(value)} />
-  }
-
-  if (field.kind === "list") {
-    return <Textarea defaultValue={Array.isArray(value) ? value.join("\n") : String(value)} />
-  }
-
-  return <Input type={field.kind === "number" ? "number" : "text"} defaultValue={String(value)} />
 }
