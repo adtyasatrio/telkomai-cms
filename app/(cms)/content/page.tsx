@@ -29,10 +29,10 @@ export default function LandingContentPage() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-col gap-1.5">
-                <p className="text-sm/relaxed text-muted-foreground line-clamp-2">
+                <p className="text-xs/relaxed text-foreground line-clamp-2">
                   {section.description}
                 </p>
-                <span className="text-xs font-medium text-foreground">
+                <span className="text-xs font-semibold text-foreground">
                   {section.meta}
                 </span>
               </div>
