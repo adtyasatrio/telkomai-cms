@@ -1,5 +1,10 @@
 export type Status = "Draft" | "Published" | "Scheduled" | "Hidden"
 
+export type Highlight = {
+  icon: string
+  label: string
+}
+
 export type HeroContent = {
   eyebrow: string
   title: string
@@ -9,7 +14,7 @@ export type HeroContent = {
   secondaryCtaLabel: string
   secondaryCtaLink: string
   backgroundImage: string
-  highlights: string[]
+  highlights: Highlight[]
   status: Status
   updatedAt: string
 }
@@ -91,7 +96,11 @@ export const heroContent: HeroContent = {
   secondaryCtaLink: "/facilities",
   backgroundImage:
     "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1600&auto=format&fit=crop",
-  highlights: ["AI Experience Lab", "Enterprise Sandbox", "Talent Academy"],
+  highlights: [
+    { icon: "UsersThree", label: "AI Experience Lab" },
+    { icon: "Desktop", label: "Enterprise Sandbox" },
+    { icon: "GraduationCap", label: "Talent Academy" },
+  ],
   status: "Published",
   updatedAt: "2026-05-18",
 }

@@ -4,6 +4,7 @@ import { useState } from "react"
 import { toast } from "sonner"
 
 import { EditorHeader } from "@/components/cms/editor-actions"
+import { HighlightListInput } from "@/components/cms/highlight-list-input"
 import { ImageUpload } from "@/components/cms/image-upload"
 import { StatusBadge } from "@/components/cms/status-badge"
 import { Button } from "@/components/ui/button"
@@ -16,7 +17,6 @@ import { heroContent } from "@/lib/cms-data"
 
 export default function HeroEditorPage() {
   const [hero, setHero] = useState(heroContent)
-  const highlights = hero.highlights.join("\n")
 
   return (
     <div className="flex flex-col gap-4">
@@ -68,15 +68,10 @@ export default function HeroEditorPage() {
                 <ImageUpload value={hero.backgroundImage} onChange={(val) => setHero({ ...hero, backgroundImage: val })} aspectRatio="video" />
               </Field>
               <Field>
-                <FieldLabel>Facility highlights list</FieldLabel>
-                <Textarea
-                  value={highlights}
-                  onChange={(event) =>
-                    setHero({
-                      ...hero,
-                      highlights: event.target.value.split("\n").filter(Boolean),
-                    })
-                  }
+                <FieldLabel>Facility highlights</FieldLabel>
+                <HighlightListInput
+                  value={hero.highlights}
+                  onChange={(highlights) => setHero({ ...hero, highlights })}
                 />
               </Field>
             </FieldGroup>
@@ -105,8 +100,12 @@ export default function HeroEditorPage() {
             </div>
             <Separator />
             <div className="grid gap-2">
-              {hero.highlights.map((highlight) => (
-                <div key={highlight} className="border px-3 py-2 text-xs">{highlight}</div>
+              {hero.highlights.map((h, i) => (
+                <div key={i} className="flex items-center gap-2 border px-3 py-2 text-xs">
+                  <span className="font-mono text-muted-foreground">{h.icon || "—"}</span>
+                  <span className="text-muted-foreground">|</span>
+                  <span>{h.label || <em className="text-muted-foreground">no label</em>}</span>
+                </div>
               ))}
             </div>
           </CardContent>
