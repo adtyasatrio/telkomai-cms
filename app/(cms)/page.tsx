@@ -12,7 +12,6 @@ import { StatusBadge } from "@/components/cms/status-badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Skeleton } from "@/components/ui/skeleton"
 import { activity, events, facilities, landingSections, media, programs } from "@/lib/cms-data"
 
 const metrics = [
@@ -67,12 +66,6 @@ export default function DashboardPage() {
             <CardDescription>Latest activity from content editors.</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="mb-3 grid gap-2 sm:grid-cols-4">
-              <Skeleton className="h-8" />
-              <Skeleton className="h-8" />
-              <Skeleton className="h-8" />
-              <Skeleton className="h-8" />
-            </div>
             <Table>
               <TableHeader>
                 <TableRow>

@@ -30,7 +30,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 
 const nav = [
   { label: "Dashboard", href: "/", icon: HouseIcon },
@@ -92,9 +91,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>
-        <header className="flex h-12 items-center gap-3 border-b bg-background px-4">
+        <header className="flex h-12 items-center gap-4 border-b bg-background px-4">
           <SidebarTrigger />
-          <Separator orientation="vertical" className="h-5" />
           <div className="flex min-w-0 flex-1 items-center justify-between gap-3">
             <p className="truncate text-xs text-muted-foreground">
               Manage all content powering the public landing page

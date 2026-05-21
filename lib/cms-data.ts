@@ -245,12 +245,12 @@ export const footerContent: FooterContent = {
 }
 
 export const landingSections = [
-  { title: "Hero", status: heroContent.status, updatedAt: heroContent.updatedAt, href: "/content/hero" },
-  { title: "AI Center / Programs", status: "Published" as Status, updatedAt: "2026-05-17", href: "/programs" },
-  { title: "AI Connect / Facilities", status: "Published" as Status, updatedAt: "2026-05-14", href: "/facilities" },
-  { title: "Events", status: "Scheduled" as Status, updatedAt: "2026-05-20", href: "/events" },
-  { title: "Media Library", status: "Draft" as Status, updatedAt: "2026-05-18", href: "/media" },
-  { title: "Footer / Contact", status: footerContent.status, updatedAt: footerContent.updatedAt, href: "/footer" },
+  { title: "Hero", status: heroContent.status, updatedAt: heroContent.updatedAt, href: "/content/hero", editHref: "/content/hero" },
+  { title: "AI Center / Programs", status: "Published" as Status, updatedAt: "2026-05-17", href: "/programs", editHref: "/programs/section" },
+  { title: "AI Connect / Facilities", status: "Published" as Status, updatedAt: "2026-05-14", href: "/facilities", editHref: "/facilities/section" },
+  { title: "Events", status: "Scheduled" as Status, updatedAt: "2026-05-20", href: "/events", editHref: "/events/section" },
+  { title: "Media Library", status: "Draft" as Status, updatedAt: "2026-05-18", href: "/media", editHref: "/media/section" },
+  { title: "Footer / Contact", status: footerContent.status, updatedAt: footerContent.updatedAt, href: "/footer", editHref: "/footer" },
 ]
 
 export const activity = [

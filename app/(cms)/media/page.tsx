@@ -6,7 +6,7 @@ export default function MediaPage() {
   return (
     <div className="flex flex-col gap-4">
       <EditorHeader title="Media editor" description="Manage media library cards, article bodies, thumbnails, and URLs." />
-      <div className="px-4 pb-6 lg:px-6">
+      <div className="grid gap-4 px-4 pb-6 lg:px-6">
         <EntityTable
           title="Media library"
           description="Media posts with search, category filter, and publish controls."
@@ -35,6 +35,8 @@ export default function MediaPage() {
           searchKeys={["title", "description", "category"]}
           emptyTitle="No media items found"
           addLabel="New media"
+          addHref="/media/new"
+          editHrefBase="/media"
         />
       </div>
     </div>

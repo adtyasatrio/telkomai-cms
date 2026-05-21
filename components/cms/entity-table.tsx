@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useMemo, useState } from "react"
 import {
   CopyIcon,
@@ -22,7 +23,6 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -81,16 +81,22 @@ export function EntityTable<T extends EditableRecord>({
   searchKeys,
   emptyTitle,
   addLabel,
+  addHref,
+  editHrefBase,
+  isLoading = false,
 }: {
   title: string
   description: string
   items: T[]
   columns: Column<T>[]
-  fields: FieldConfig<T>[]
+  fields?: FieldConfig<T>[]
   filters: { key: keyof T; label: string; values: string[] }[]
   searchKeys: (keyof T)[]
   emptyTitle: string
   addLabel: string
+  addHref?: string
+  editHrefBase?: string
+  isLoading?: boolean
 }) {
   const [rows, setRows] = useState(items)
   const [query, setQuery] = useState("")
@@ -98,6 +104,7 @@ export function EntityTable<T extends EditableRecord>({
   const [editing, setEditing] = useState<T | null>(null)
   const [sheetOpen, setSheetOpen] = useState(false)
   const [preview, setPreview] = useState<T | null>(null)
+  const [deleteTarget, setDeleteTarget] = useState<T | null>(null)
 
   const filtered = useMemo(() => {
     return rows.filter((row) => {
@@ -165,17 +172,28 @@ export function EntityTable<T extends EditableRecord>({
               </SelectContent>
             </Select>
           </div>
-          <Button onClick={() => openEditor()}>
-            <PlusIcon data-icon="inline-start" />
-            {addLabel}
-          </Button>
+          {addHref ? (
+            <Button render={<Link href={addHref} />}>
+              <PlusIcon data-icon="inline-start" />
+              {addLabel}
+            </Button>
+          ) : (
+            <Button onClick={() => openEditor()}>
+              <PlusIcon data-icon="inline-start" />
+              {addLabel}
+            </Button>
+          )}
         </div>
-        <div className="grid gap-2 sm:grid-cols-3">
-          <Skeleton className="h-8" />
-          <Skeleton className="h-8" />
-          <Skeleton className="h-8" />
-        </div>
-        {filtered.length ? (
+        {isLoading ? (
+          <div className="flex flex-col gap-3">
+            <div className="grid gap-2 sm:grid-cols-3">
+              <Skeleton className="h-8" />
+              <Skeleton className="h-8" />
+              <Skeleton className="h-8" />
+            </div>
+            <Skeleton className="h-44" />
+          </div>
+        ) : filtered.length ? (
           <Table>
             <TableHeader>
               <TableRow>
@@ -201,10 +219,17 @@ export function EntityTable<T extends EditableRecord>({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <DropdownMenuGroup>
-                          <DropdownMenuItem onClick={() => openEditor(row)}>
-                            <PencilSimpleIcon />
-                            Edit
-                          </DropdownMenuItem>
+                          {editHrefBase ? (
+                            <DropdownMenuItem render={<Link href={`${editHrefBase}/${row.id}/edit`} />}>
+                              <PencilSimpleIcon />
+                              Edit
+                            </DropdownMenuItem>
+                          ) : (
+                            <DropdownMenuItem onClick={() => openEditor(row)}>
+                              <PencilSimpleIcon />
+                              Edit
+                            </DropdownMenuItem>
+                          )}
                           <DropdownMenuItem onClick={() => setPreview(row)}>
                             <MagnifyingGlassIcon />
                             Preview
@@ -213,24 +238,13 @@ export function EntityTable<T extends EditableRecord>({
                             <CopyIcon />
                             Duplicate
                           </DropdownMenuItem>
-                          <AlertDialog>
-                            <AlertDialogTrigger render={<DropdownMenuItem variant="destructive" />}>
-                              <TrashIcon />
-                              Delete
-                            </AlertDialogTrigger>
-                            <AlertDialogContent>
-                              <AlertDialogHeader>
-                                <AlertDialogTitle>Delete this item?</AlertDialogTitle>
-                                <AlertDialogDescription>
-                                  This removes the local mock record from the table. API persistence can be attached later.
-                                </AlertDialogDescription>
-                              </AlertDialogHeader>
-                              <AlertDialogFooter>
-                                <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction onClick={() => deleteRow(row)}>Delete</AlertDialogAction>
-                              </AlertDialogFooter>
-                            </AlertDialogContent>
-                          </AlertDialog>
+                          <DropdownMenuItem
+                            variant="destructive"
+                            onClick={() => setDeleteTarget(row)}
+                          >
+                            <TrashIcon />
+                            Delete
+                          </DropdownMenuItem>
                         </DropdownMenuGroup>
                       </DropdownMenuContent>
                     </DropdownMenu>
@@ -246,7 +260,11 @@ export function EntityTable<T extends EditableRecord>({
               <EmptyDescription>Adjust search filters or create a new entry.</EmptyDescription>
             </EmptyHeader>
             <EmptyContent>
-              <Button onClick={() => openEditor()}>{addLabel}</Button>
+              {addHref ? (
+                <Button render={<Link href={addHref} />}>{addLabel}</Button>
+              ) : (
+                <Button onClick={() => openEditor()}>{addLabel}</Button>
+              )}
             </EmptyContent>
           </Empty>
         )}
@@ -260,7 +278,7 @@ export function EntityTable<T extends EditableRecord>({
           {editing ? (
             <div className="px-4">
               <FieldGroup>
-                {fields.map((field) => (
+                {(fields ?? []).map((field) => (
                   <Field key={String(field.key)}>
                     <FieldLabel>{field.label}</FieldLabel>
                     <FieldControl item={editing} field={field} />
@@ -299,6 +317,30 @@ export function EntityTable<T extends EditableRecord>({
           <pre className="max-h-72 overflow-auto bg-muted p-3 text-xs">{JSON.stringify(preview, null, 2)}</pre>
         </DialogContent>
       </Dialog>
+      <AlertDialog open={!!deleteTarget} onOpenChange={(open) => !open && setDeleteTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete this item?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will remove {deleteTarget ? `"${String(deleteTarget.title)}"` : "this item"} from the local CMS table.
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                if (deleteTarget) {
+                  deleteRow(deleteTarget)
+                }
+                setDeleteTarget(null)
+              }}
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </Card>
   )
 }

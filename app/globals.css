@@ -127,3 +127,38 @@
     @apply font-sans;
     }
 }
+
+@layer components {
+  .rich-text-editor-content p {
+    @apply mb-3;
+  }
+
+  .rich-text-editor-content h1 {
+    @apply mb-3 font-heading text-2xl font-semibold;
+  }
+
+  .rich-text-editor-content h2 {
+    @apply mb-3 font-heading text-xl font-semibold;
+  }
+
+  .rich-text-editor-content h3 {
+    @apply mb-2 font-heading text-lg font-semibold;
+  }
+
+  .rich-text-editor-content ul {
+    @apply mb-3 list-disc pl-5;
+  }
+
+  .rich-text-editor-content ol {
+    @apply mb-3 list-decimal pl-5;
+  }
+
+  .rich-text-editor-content blockquote {
+    @apply mb-3 border-l-2 pl-4 text-muted-foreground;
+  }
+
+  .rich-text-editor-content .is-editor-empty:first-child::before {
+    @apply pointer-events-none float-left h-0 text-muted-foreground;
+    content: attr(data-placeholder);
+  }
+}

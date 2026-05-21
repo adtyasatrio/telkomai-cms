@@ -34,7 +34,7 @@ export default function LandingContentPage() {
                 <EyeIcon data-icon="inline-start" />
                 Preview
               </Button>
-              <Button render={<Link href={section.href} />}>
+              <Button render={<Link href={section.editHref} />}>
                 <PencilSimpleIcon data-icon="inline-start" />
                 Edit
               </Button>
