@@ -4,7 +4,7 @@ import { EyeIcon, PencilSimpleIcon } from "@phosphor-icons/react/dist/ssr"
 import { PageHeader } from "@/components/cms/page-header"
 import { StatusBadge } from "@/components/cms/status-badge"
 import { Button } from "@/components/ui/button"
-import { Card, CardAction, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { landingSections } from "@/lib/cms-data"
 
 export default function LandingContentPage() {
@@ -25,11 +25,21 @@ export default function LandingContentPage() {
               </CardAction>
               <CardDescription>Last updated {section.updatedAt}</CardDescription>
             </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-1.5">
+                <p className="text-sm/relaxed text-muted-foreground line-clamp-2">
+                  {section.description}
+                </p>
+                <span className="text-xs font-medium text-foreground">
+                  {section.meta}
+                </span>
+              </div>
+            </CardContent>
 
             <CardFooter className="gap-2">
               <Button variant="outline" render={<Link href={section.href} />}>
                 <EyeIcon data-icon="inline-start" />
-                Preview
+                {section.previewLabel || "Preview"}
               </Button>
               <Button render={<Link href={section.editHref} />}>
                 <PencilSimpleIcon data-icon="inline-start" />

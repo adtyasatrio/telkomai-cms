@@ -245,12 +245,66 @@ export const footerContent: FooterContent = {
 }
 
 export const landingSections = [
-  { title: "Hero", status: heroContent.status, updatedAt: heroContent.updatedAt, href: "/content/hero", editHref: "/content/hero" },
-  { title: "AI Center / Programs", status: "Published" as Status, updatedAt: "2026-05-17", href: "/programs", editHref: "/programs/section" },
-  { title: "AI Connect / Facilities", status: "Published" as Status, updatedAt: "2026-05-14", href: "/facilities", editHref: "/facilities/section" },
-  { title: "Events", status: "Scheduled" as Status, updatedAt: "2026-05-20", href: "/events", editHref: "/events/section" },
-  { title: "Media Library", status: "Draft" as Status, updatedAt: "2026-05-18", href: "/media", editHref: "/media/section" },
-  { title: "Footer / Contact", status: footerContent.status, updatedAt: footerContent.updatedAt, href: "/footer", editHref: "/footer" },
+  { 
+    title: "Hero", 
+    status: heroContent.status, 
+    updatedAt: heroContent.updatedAt, 
+    href: "/content/hero", 
+    editHref: "/content/hero", 
+    previewLabel: "View Hero",
+    description: "Main landing banner, primary CTA, and highlights.",
+    meta: "1 main content"
+  },
+  { 
+    title: "AI Center / Programs", 
+    status: "Published" as Status, 
+    updatedAt: "2026-05-17", 
+    href: "/programs", 
+    editHref: "/programs/section", 
+    previewLabel: "View Programs",
+    description: "Manage learning cohorts and enterprise studio tracks.",
+    meta: `${programs.length} active programs`
+  },
+  { 
+    title: "AI Connect / Facilities", 
+    status: "Published" as Status, 
+    updatedAt: "2026-05-14", 
+    href: "/facilities", 
+    editHref: "/facilities/section", 
+    previewLabel: "View Facilities",
+    description: "Showcase physical spaces, capacities, and booking info.",
+    meta: `${facilities.length} available facilities`
+  },
+  { 
+    title: "Events", 
+    status: "Scheduled" as Status, 
+    updatedAt: "2026-05-20", 
+    href: "/events", 
+    editHref: "/events/section", 
+    previewLabel: "View Events",
+    description: "Upcoming seminars, workshops, and ecosystem events.",
+    meta: `${events.length} upcoming events`
+  },
+  { 
+    title: "Media Library", 
+    status: "Draft" as Status, 
+    updatedAt: "2026-05-18", 
+    href: "/media", 
+    editHref: "/media/section", 
+    previewLabel: "View Media",
+    description: "Press releases, articles, and video features.",
+    meta: `${media.length} media items`
+  },
+  { 
+    title: "Footer / Contact", 
+    status: footerContent.status, 
+    updatedAt: footerContent.updatedAt, 
+    href: "/footer", 
+    editHref: "/footer", 
+    previewLabel: "View Footer",
+    description: "Global site footer, social links, and contact addresses.",
+    meta: "Site-wide footer config"
+  },
 ]
 
 export const activity = [
