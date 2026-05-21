@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { EyeIcon, PencilSimpleIcon } from "@phosphor-icons/react"
+import { ArrowRightIcon, EyeIcon } from "@phosphor-icons/react"
 
 import { PageHeader } from "@/components/cms/page-header"
 import { StatusBadge } from "@/components/cms/status-badge"
@@ -43,9 +43,8 @@ export default function LandingContentPage() {
                 <EyeIcon data-icon="inline-start" />
                 {section.previewLabel || "Preview"}
               </Button>
-              <Button render={<Link href={section.editHref} />}>
-                <PencilSimpleIcon data-icon="inline-start" />
-                Update Content
+              <Button size="icon" className="ml-auto" render={<Link href={section.editHref} />} aria-label="Edit section">
+                <ArrowRightIcon />
               </Button>
             </CardFooter>
           </Card>
