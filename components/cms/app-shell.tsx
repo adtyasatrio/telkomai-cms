@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation"
 import {
   CalendarDotsIcon,
   HouseIcon,
-  ImageSquareIcon,
   LayoutIcon,
   MapPinAreaIcon,
   NewspaperClippingIcon,
@@ -30,11 +29,11 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Button } from "@/components/ui/button"
+import { ThemeSelector } from "@/components/cms/theme-selector"
 
 const nav = [
   { label: "Dashboard", href: "/", icon: HouseIcon },
   { label: "Landing Content", href: "/content", icon: LayoutIcon },
-  { label: "Hero", href: "/content/hero", icon: ImageSquareIcon },
   { label: "Programs", href: "/programs", icon: SquaresFourIcon },
   { label: "Facilities", href: "/facilities", icon: MapPinAreaIcon },
   { label: "Events", href: "/events", icon: CalendarDotsIcon },
@@ -97,7 +96,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             <p className="truncate text-xs text-muted-foreground">
               Manage all content powering the public landing page
             </p>
-            <Button variant="outline" size="sm">Production</Button>
+            <div className="flex items-center gap-2">
+              <ThemeSelector />
+            </div>
           </div>
         </header>
         <main className="min-h-[calc(100svh-3rem)] bg-muted/30">{children}</main>
