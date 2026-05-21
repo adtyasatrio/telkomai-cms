@@ -8,7 +8,8 @@ export default function FacilitiesSectionPage() {
   return (
     <div className="flex flex-col gap-4">
       <EditorHeader
-        title="Facilities section copy"
+        eyebrow="Facilities Section"
+        title="Facilities Section Intro"
         description="Manage the title and introduction for the AI Connect facilities section."
       />
       <div className="grid gap-4 px-4 pb-6 lg:px-6">

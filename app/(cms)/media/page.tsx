@@ -5,7 +5,12 @@ import { media } from "@/lib/cms-data"
 export default function MediaPage() {
   return (
     <div className="flex flex-col gap-4">
-      <EditorHeader title="Media editor" description="Manage media library cards, article bodies, thumbnails, and URLs." />
+      <EditorHeader
+        eyebrow="Media"
+        title="Media Library"
+        description="Manage media library cards, article bodies, thumbnails, and URLs."
+        actions={false}
+      />
       <div className="grid gap-4 px-4 pb-6 lg:px-6">
         <EntityTable
           title="Media library"

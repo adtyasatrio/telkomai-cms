@@ -20,7 +20,8 @@ export default function HeroEditorPage() {
   return (
     <div className="flex flex-col gap-4">
       <EditorHeader
-        title="Hero editor"
+        eyebrow="Hero Section"
+        title="Hero Content"
         description="Control the first viewport, calls to action, image, and facility highlights."
       />
       <div className="grid gap-4 px-4 pb-6 xl:grid-cols-[1fr_420px] lg:px-6">

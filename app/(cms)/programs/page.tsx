@@ -5,7 +5,12 @@ import { programs } from "@/lib/cms-data"
 export default function ProgramsPage() {
   return (
     <div className="flex flex-col gap-4">
-      <EditorHeader title="Programs editor" description="Manage AI Center program cards." />
+      <EditorHeader
+        eyebrow="Programs"
+        title="Programs"
+        description="Manage AI Center program cards."
+        actions={false}
+      />
       <div className="grid gap-4 px-4 pb-6 lg:px-6">
         <EntityTable
           title="Program cards"

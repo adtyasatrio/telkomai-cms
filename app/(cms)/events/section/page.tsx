@@ -10,7 +10,8 @@ export default function EventsSectionPage() {
   return (
     <div className="flex flex-col gap-4">
       <EditorHeader
-        title="Events section settings"
+        eyebrow="Events Section"
+        title="Events Section Settings"
         description="Manage landing page copy and featured event placement separately from the event list."
       />
       <div className="grid gap-4 px-4 pb-6 lg:px-6">

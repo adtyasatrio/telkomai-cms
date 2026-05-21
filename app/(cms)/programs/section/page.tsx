@@ -8,7 +8,8 @@ export default function ProgramsSectionPage() {
   return (
     <div className="flex flex-col gap-4">
       <EditorHeader
-        title="Programs section copy"
+        eyebrow="Programs Section"
+        title="Programs Section Intro"
         description="Manage the landing page label, title, and introduction for the AI Center programs section."
       />
       <div className="grid gap-4 px-4 pb-6 lg:px-6">

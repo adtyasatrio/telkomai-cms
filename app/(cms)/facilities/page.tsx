@@ -5,7 +5,12 @@ import { facilities } from "@/lib/cms-data"
 export default function FacilitiesPage() {
   return (
     <div className="flex flex-col gap-4">
-      <EditorHeader title="Facilities editor" description="Manage AI Connect facility content, availability, and booking details." />
+      <EditorHeader
+        eyebrow="Facilities"
+        title="Facilities"
+        description="Manage AI Connect facility content, availability, and booking details."
+        actions={false}
+      />
       <div className="grid gap-4 px-4 pb-6 lg:px-6">
         <EntityTable
           title="Facilities"

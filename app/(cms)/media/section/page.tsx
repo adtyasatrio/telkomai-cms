@@ -8,7 +8,8 @@ export default function MediaSectionPage() {
   return (
     <div className="flex flex-col gap-4">
       <EditorHeader
-        title="Media section copy"
+        eyebrow="Media Section"
+        title="Media Section Intro"
         description="Manage the landing page label, title, and description for the media library section."
       />
       <div className="grid gap-4 px-4 pb-6 lg:px-6">

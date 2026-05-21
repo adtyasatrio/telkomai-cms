@@ -15,7 +15,11 @@ export default function FooterPage() {
 
   return (
     <div className="flex flex-col gap-4">
-      <EditorHeader title="Footer / Contact editor" description="Manage company description, contact methods, social links, and footer navigation." />
+      <EditorHeader
+        eyebrow="Footer"
+        title="Footer & Contact Info"
+        description="Manage company description, contact methods, social links, and footer navigation."
+      />
       <div className="grid gap-4 px-4 pb-6 xl:grid-cols-[1fr_380px] lg:px-6">
         <Card>
           <CardHeader>

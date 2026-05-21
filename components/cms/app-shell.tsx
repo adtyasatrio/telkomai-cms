@@ -105,7 +105,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             </div>
           </div>
         </header>
-        <main className="min-h-[calc(100svh-3rem)] bg-muted/30">{children}</main>
+        <main className="min-h-[calc(100svh-3rem)] bg-line-pattern">{children}</main>
       </SidebarInset>
     </SidebarProvider>
   )
