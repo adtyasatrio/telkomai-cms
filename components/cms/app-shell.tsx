@@ -28,7 +28,6 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
-import { Button } from "@/components/ui/button"
 import { ThemeSelector } from "@/components/cms/theme-selector"
 
 const nav = [
@@ -87,9 +86,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </SidebarContent>
         <SidebarSeparator />
         <SidebarFooter>
-          <div className="flex flex-col gap-2 px-2 py-1 group-data-[collapsible=icon]:hidden">
-            <p className="text-xs text-sidebar-foreground/70">Auth-ready shell</p>
-            <Button variant="outline" size="sm">Admin profile</Button>
+          <div className="flex items-center gap-2.5 px-2 py-1.5">
+            <div className="relative flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-xs border border-primary/20">
+              AS
+              <span className="absolute bottom-0 right-0 size-2.5 rounded-full bg-emerald-500 ring-2 ring-sidebar" />
+            </div>
+            <div className="flex min-w-0 flex-col group-data-[collapsible=icon]:hidden">
+              <span className="truncate text-xs font-semibold text-sidebar-foreground">Aditya Satrio</span>
+              <span className="truncate text-[10px] text-sidebar-foreground/60">Super Admin</span>
+            </div>
           </div>
         </SidebarFooter>
       </Sidebar>
