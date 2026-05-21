@@ -76,7 +76,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                         isActive={active}
                       >
                         <Icon weight={active ? "fill" : "regular"} />
-                        <span className={active ? "text-sm font-semibold" : "text-sm"}>{item.label}</span>
+                        <span className={active ? "text-xs font-semibold" : "text-xs"}>{item.label}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   )
