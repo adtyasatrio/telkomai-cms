@@ -1,4 +1,4 @@
-export type Status = "Draft" | "Published" | "Scheduled"
+export type Status = "Draft" | "Published" | "Scheduled" | "Hidden"
 
 export type HeroContent = {
   eyebrow: string
@@ -23,6 +23,7 @@ export type ProgramItem = {
   sortOrder: number
   visible: boolean
   status: Status
+  createdBy: string
   updatedAt: string
 }
 
@@ -36,6 +37,7 @@ export type FacilityItem = {
   features: string[]
   bookingAvailable: boolean
   status: Status
+  createdBy: string
   updatedAt: string
 }
 
@@ -48,8 +50,8 @@ export type EventItem = {
   description: string
   imageUrl: string
   featured: boolean
-  published: boolean
   status: Status
+  createdBy: string
   updatedAt: string
 }
 
@@ -62,8 +64,8 @@ export type MediaItem = {
   thumbnailUrl: string
   body: string
   url: string
-  published: boolean
   status: Status
+  createdBy: string
   updatedAt: string
 }
 
@@ -105,6 +107,7 @@ export const programs: ProgramItem[] = [
     sortOrder: 1,
     visible: true,
     status: "Published",
+    createdBy: "Maya S.",
     updatedAt: "2026-05-17",
   },
   {
@@ -117,6 +120,7 @@ export const programs: ProgramItem[] = [
     sortOrder: 2,
     visible: true,
     status: "Published",
+    createdBy: "Rafi A.",
     updatedAt: "2026-05-12",
   },
   {
@@ -129,6 +133,7 @@ export const programs: ProgramItem[] = [
     sortOrder: 3,
     visible: false,
     status: "Draft",
+    createdBy: "Dina P.",
     updatedAt: "2026-05-09",
   },
 ]
@@ -145,6 +150,7 @@ export const facilities: FacilityItem[] = [
     features: ["Demo wall", "Hybrid meeting", "Prototype kiosks"],
     bookingAvailable: true,
     status: "Published",
+    createdBy: "Admin",
     updatedAt: "2026-05-14",
   },
   {
@@ -158,6 +164,7 @@ export const facilities: FacilityItem[] = [
     features: ["Modular seating", "Recording kit", "Breakout pods"],
     bookingAvailable: true,
     status: "Published",
+    createdBy: "Rafi A.",
     updatedAt: "2026-05-11",
   },
 ]
@@ -173,8 +180,8 @@ export const events: EventItem[] = [
     imageUrl:
       "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=1200&auto=format&fit=crop",
     featured: true,
-    published: true,
     status: "Scheduled",
+    createdBy: "Dina P.",
     updatedAt: "2026-05-20",
   },
   {
@@ -187,8 +194,8 @@ export const events: EventItem[] = [
     imageUrl:
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop",
     featured: false,
-    published: true,
     status: "Published",
+    createdBy: "Maya S.",
     updatedAt: "2026-05-16",
   },
 ]
@@ -204,8 +211,8 @@ export const media: MediaItem[] = [
       "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1200&auto=format&fit=crop",
     body: "The program connects research mentors, enterprise use cases, and shared infrastructure.",
     url: "https://example.com/news/ai-coe-research",
-    published: true,
     status: "Published",
+    createdBy: "Admin",
     updatedAt: "2026-05-18",
   },
   {
@@ -218,8 +225,8 @@ export const media: MediaItem[] = [
       "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
     body: "A short video package prepared for landing page feature placement.",
     url: "https://example.com/videos/experience-lab",
-    published: false,
     status: "Draft",
+    createdBy: "Rafi A.",
     updatedAt: "2026-05-10",
   },
 ]

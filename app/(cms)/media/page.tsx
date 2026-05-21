@@ -20,13 +20,13 @@ export default function MediaPage() {
             { key: "title", label: "Title" },
             { key: "category", label: "Category" },
             { key: "metaDate", label: "Meta/date" },
-            { key: "published", label: "Published", type: "boolean" },
+            { key: "createdBy", label: "Creator" },
             { key: "status", label: "Status", type: "status" },
           ]}
 
           filters={[
             { key: "category", label: "Category", values: ["News", "Article", "Video", "Press"] },
-            { key: "status", label: "Status", values: ["Published", "Draft"] },
+            { key: "status", label: "Status", values: ["Published", "Draft", "Scheduled", "Hidden"] },
           ]}
           searchKeys={["title", "description", "category"]}
           emptyTitle="No media items found"

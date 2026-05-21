@@ -440,7 +440,7 @@ function CellValue({ value, type }: { value: unknown; type?: Column<EditableReco
   }
 
   if (type === "boolean") {
-    return <StatusBadge status={value ? "Enabled" : "Disabled"} />
+    return <StatusBadge status={value ? "Active" : "Non-active"} />
   }
 
   if (type === "list" && Array.isArray(value)) {

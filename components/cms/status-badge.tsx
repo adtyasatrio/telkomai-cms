@@ -31,8 +31,17 @@ export function StatusBadge({ status }: { status: Status | string }) {
     )
   }
 
-  // Enabled (Teal)
-  if (status === "Enabled") {
+  // Hidden (Gray/Slate)
+  if (status === "Hidden") {
+    return (
+      <Badge className="bg-slate-500/10 text-slate-700 border-slate-500/20 hover:bg-slate-500/15 dark:bg-slate-500/15 dark:text-slate-400 dark:border-slate-500/30">
+        {status}
+      </Badge>
+    )
+  }
+
+  // Active (Teal)
+  if (status === "Active" || status === "Enabled") {
     return (
       <Badge className="bg-teal-500/10 text-teal-700 border-teal-500/20 hover:bg-teal-500/15 dark:bg-teal-500/15 dark:text-teal-400 dark:border-teal-500/30">
         {status}
@@ -40,8 +49,8 @@ export function StatusBadge({ status }: { status: Status | string }) {
     )
   }
 
-  // Disabled (Rose/Red)
-  if (status === "Disabled") {
+  // Non-active / Disabled (Rose/Red)
+  if (status === "Non-active" || status === "Non Active" || status === "Disabled") {
     return (
       <Badge className="bg-rose-500/10 text-rose-700 border-rose-500/20 hover:bg-rose-500/15 dark:bg-rose-500/15 dark:text-rose-400 dark:border-rose-500/30">
         {status}
