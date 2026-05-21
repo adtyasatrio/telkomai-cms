@@ -1,8 +1,11 @@
 "use client"
 
 import Link from "next/link"
+
+import { Button } from "@/components/ui/button"
 import { usePathname } from "next/navigation"
 import {
+  ArrowSquareOutIcon,
   CalendarDotsIcon,
   HouseIcon,
   LayoutIcon,
@@ -131,6 +134,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               Manage all content powering the public landing page
             </p>
             <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" render={<Link href="https://telkomai.vercel.app" target="_blank" rel="noopener noreferrer" />}>
+                <ArrowSquareOutIcon data-icon="inline-start" />
+                Go to Landing Page
+              </Button>
               <ThemeSelector />
             </div>
           </div>
