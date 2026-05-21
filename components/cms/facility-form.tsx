@@ -82,7 +82,7 @@ export function FacilityForm({ facility, mode }: { facility?: FacilityItem; mode
                 <FieldLabel>Features list (one per line)</FieldLabel>
                 <Textarea defaultValue={data.features.join("\n")} placeholder="e.g. Demo wall&#10;Hybrid meeting" />
               </Field>
-              <Field orientation="horizontal">
+              <Field orientation="horizontal" className="border bg-muted/40 px-3 py-2.5">
                 <FieldLabel>Booking availability</FieldLabel>
                 <Switch defaultChecked={data.bookingAvailable} />
               </Field>

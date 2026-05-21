@@ -74,7 +74,7 @@ export function ProgramForm({ program, mode }: { program?: ProgramItem; mode: "n
                 <FieldLabel>Program photo</FieldLabel>
                 <ImageUpload defaultValue={data.imageUrl} onChange={(val) => { data.imageUrl = val }} aspectRatio="rectangle" />
               </Field>
-              <Field orientation="horizontal">
+              <Field orientation="horizontal" className="border bg-muted/40 px-3 py-2.5">
                 <FieldLabel>Visibility</FieldLabel>
                 <Switch defaultChecked={data.visible} />
               </Field>

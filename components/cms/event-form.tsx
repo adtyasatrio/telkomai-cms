@@ -97,11 +97,11 @@ export function EventForm({ event, mode }: { event?: EventItem; mode: "new" | "e
                 <ImageUpload defaultValue={data.imageUrl} onChange={(val) => { data.imageUrl = val }} aspectRatio="rectangle" />
               </Field>
               <div className="grid gap-4 md:grid-cols-2">
-                <Field orientation="horizontal">
+                <Field orientation="horizontal" className="border bg-muted/40 px-3 py-2.5">
                   <FieldLabel>Featured toggle</FieldLabel>
                   <Switch defaultChecked={data.featured} />
                 </Field>
-                <Field orientation="horizontal">
+                <Field orientation="horizontal" className="border bg-muted/40 px-3 py-2.5">
                   <FieldLabel>Published status</FieldLabel>
                   <Switch defaultChecked={data.status === "Published"} />
                 </Field>

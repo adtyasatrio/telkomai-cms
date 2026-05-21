@@ -24,7 +24,7 @@ import { PageHeader } from "@/components/cms/page-header"
 const blankMedia: MediaItem = {
   id: "med-new",
   title: "",
-  category: "News",
+  category: "Article",
   metaDate: "",
   description: "",
   thumbnailUrl: "",
@@ -144,7 +144,7 @@ export function MediaForm({ item, mode }: { item?: MediaItem; mode: "new" | "edi
                 </Field>
               )}
 
-              <Field orientation="horizontal">
+              <Field orientation="horizontal" className="border bg-muted/40 px-3 py-2.5">
                 <FieldLabel>Published status</FieldLabel>
                 <Switch defaultChecked={data.status === "Published"} />
               </Field>
