@@ -62,7 +62,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarGroup>
             <SidebarGroupLabel>Content</SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu className="gap-px">
+              <SidebarMenu>
                 {nav.map((item) => {
                   const Icon = item.icon
                   const active =
