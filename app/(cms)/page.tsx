@@ -7,7 +7,6 @@ import {
   ImageSquareIcon,
   MapPinAreaIcon,
   NewspaperClippingIcon,
-  SquaresFourIcon,
 } from "@phosphor-icons/react"
 
 import { PageHeader } from "@/components/cms/page-header"
@@ -18,7 +17,6 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { activity, events, facilities, landingSections, media, programs } from "@/lib/cms-data"
 
 const metrics = [
-  { label: "Sections", value: landingSections.length, icon: SquaresFourIcon },
   { label: "Events", value: events.length, icon: CalendarDotsIcon },
   { label: "Media posts", value: media.length, icon: NewspaperClippingIcon },
   { label: "Facilities", value: facilities.length, icon: MapPinAreaIcon },
@@ -42,7 +40,7 @@ export default function DashboardPage() {
         title="CMS operations overview"
         description="Monitor landing page content health, recent changes, and priority editing areas."
       />
-      <div className="grid gap-4 px-4 lg:grid-cols-5 lg:px-6">
+      <div className="grid gap-4 px-4 lg:grid-cols-4 lg:px-6">
         {metrics.map((metric) => {
           const Icon = metric.icon
 
