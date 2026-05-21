@@ -3,6 +3,7 @@
 import Link from "next/link"
 import {
   CalendarDotsIcon,
+  CaretRightIcon,
   ImageSquareIcon,
   MapPinAreaIcon,
   NewspaperClippingIcon,
@@ -99,8 +100,14 @@ export default function DashboardPage() {
           </CardHeader>
           <CardContent className="grid gap-2">
             {quickActions.map(([label, href]) => (
-              <Button key={href} variant="outline" render={<Link href={href} />}>
-                {label}
+              <Button
+                key={href}
+                variant="outline"
+                render={<Link href={href} />}
+                className="justify-between w-full"
+              >
+                <span>{label}</span>
+                <CaretRightIcon data-icon="inline-end" />
               </Button>
             ))}
           </CardContent>
