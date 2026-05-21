@@ -62,7 +62,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <SidebarGroup>
             <SidebarGroupLabel>Content</SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu>
+              <SidebarMenu className="gap-px">
                 {nav.map((item) => {
                   const Icon = item.icon
                   const active =
@@ -70,9 +70,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
                   return (
                     <SidebarMenuItem key={item.href}>
-                      <SidebarMenuButton render={<Link href={item.href} />} isActive={active}>
-                        <Icon />
-                        <span>{item.label}</span>
+                      <SidebarMenuButton
+                        className="min-h-10 px-3"
+                        render={<Link href={item.href} />}
+                        isActive={active}
+                      >
+                        <Icon weight={active ? "fill" : "regular"} />
+                        <span className={active ? "text-sm font-semibold" : "text-sm"}>{item.label}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   )
