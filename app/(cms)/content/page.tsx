@@ -45,7 +45,7 @@ export default function LandingContentPage() {
               </Button>
               <Button render={<Link href={section.editHref} />}>
                 <PencilSimpleIcon data-icon="inline-start" />
-                Edit
+                Update Content
               </Button>
             </CardFooter>
           </Card>
