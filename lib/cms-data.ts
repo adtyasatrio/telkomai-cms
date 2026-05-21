@@ -233,6 +233,8 @@ export const footerContent: FooterContent = {
   socialLinks: [
     { label: "LinkedIn", url: "https://linkedin.com/company/telkom-indonesia" },
     { label: "Instagram", url: "https://instagram.com/telkomindonesia" },
+    { label: "Facebook", url: "https://facebook.com/telkomindonesia" },
+    { label: "X", url: "https://x.com/telkomindonesia" },
   ],
   navLinks: [
     { label: "Programs", url: "/programs" },

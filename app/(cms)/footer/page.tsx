@@ -1,6 +1,9 @@
 "use client"
 
 import { useState } from "react"
+import { FacebookLogo, InstagramLogo, LinkedinLogo, XLogo } from "@phosphor-icons/react"
+
+import { cn } from "@/lib/utils"
 
 import { EditorHeader } from "@/components/cms/editor-actions"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -34,14 +37,68 @@ export default function FooterPage() {
                 <Field><FieldLabel>Phone</FieldLabel><Input value={footer.phone} onChange={(event) => setFooter({ ...footer, phone: event.target.value })} /></Field>
               </div>
               <Field><FieldLabel>Address</FieldLabel><Textarea value={footer.address} onChange={(event) => setFooter({ ...footer, address: event.target.value })} /></Field>
-              <Field>
-                <FieldLabel>Social links</FieldLabel>
-                <Textarea defaultValue={footer.socialLinks.map((link) => `${link.label}: ${link.url}`).join("\n")} />
-              </Field>
-              <Field>
-                <FieldLabel>Footer nav links</FieldLabel>
-                <Textarea defaultValue={footer.navLinks.map((link) => `${link.label}: ${link.url}`).join("\n")} />
-              </Field>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field>
+                  <FieldLabel className="flex items-center gap-1.5">
+                    <LinkedinLogo className="size-4 text-[#0077b5]" weight="duotone" />
+                    LinkedIn URL
+                  </FieldLabel>
+                  <Input
+                    value={footer.socialLinks.find((link) => link.label === "LinkedIn")?.url || ""}
+                    onChange={(event) => {
+                      const newSocials = footer.socialLinks.map((link) =>
+                        link.label === "LinkedIn" ? { ...link, url: event.target.value } : link
+                      )
+                      setFooter({ ...footer, socialLinks: newSocials })
+                    }}
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel className="flex items-center gap-1.5">
+                    <InstagramLogo className="size-4 text-[#e1306c]" weight="duotone" />
+                    Instagram URL
+                  </FieldLabel>
+                  <Input
+                    value={footer.socialLinks.find((link) => link.label === "Instagram")?.url || ""}
+                    onChange={(event) => {
+                      const newSocials = footer.socialLinks.map((link) =>
+                        link.label === "Instagram" ? { ...link, url: event.target.value } : link
+                      )
+                      setFooter({ ...footer, socialLinks: newSocials })
+                    }}
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel className="flex items-center gap-1.5">
+                    <FacebookLogo className="size-4 text-[#1877f2]" weight="duotone" />
+                    Facebook URL
+                  </FieldLabel>
+                  <Input
+                    value={footer.socialLinks.find((link) => link.label === "Facebook")?.url || ""}
+                    onChange={(event) => {
+                      const newSocials = footer.socialLinks.map((link) =>
+                        link.label === "Facebook" ? { ...link, url: event.target.value } : link
+                      )
+                      setFooter({ ...footer, socialLinks: newSocials })
+                    }}
+                  />
+                </Field>
+                <Field>
+                  <FieldLabel className="flex items-center gap-1.5">
+                    <XLogo className="size-4 text-foreground" weight="duotone" />
+                    X (Twitter) URL
+                  </FieldLabel>
+                  <Input
+                    value={footer.socialLinks.find((link) => link.label === "X")?.url || ""}
+                    onChange={(event) => {
+                      const newSocials = footer.socialLinks.map((link) =>
+                        link.label === "X" ? { ...link, url: event.target.value } : link
+                      )
+                      setFooter({ ...footer, socialLinks: newSocials })
+                    }}
+                  />
+                </Field>
+              </div>
             </FieldGroup>
           </CardContent>
         </Card>
@@ -62,8 +119,31 @@ export default function FooterPage() {
               <p>{footer.address}</p>
             </div>
             <Separator />
-            <div className="grid gap-2">
-              {footer.navLinks.map((link) => <span key={link.label} className="text-xs text-muted-foreground">{link.label} {"->"} {link.url}</span>)}
+            <div className="flex flex-col gap-2">
+              {footer.socialLinks.map((link) => {
+                let Icon = LinkedinLogo
+                let iconColor = "text-[#0077b5]"
+
+                if (link.label === "Instagram") {
+                  Icon = InstagramLogo
+                  iconColor = "text-[#e1306c]"
+                } else if (link.label === "Facebook") {
+                  Icon = FacebookLogo
+                  iconColor = "text-[#1877f2]"
+                } else if (link.label === "X") {
+                  Icon = XLogo
+                  iconColor = "text-foreground"
+                }
+
+                if (!link.url) return null
+
+                return (
+                  <div key={link.label} className="flex items-center gap-2 text-xs text-muted-foreground">
+                    <Icon className={cn("size-4 shrink-0", iconColor)} weight="duotone" />
+                    <span className="truncate">{link.url}</span>
+                  </div>
+                )
+              })}
             </div>
           </CardContent>
         </Card>
