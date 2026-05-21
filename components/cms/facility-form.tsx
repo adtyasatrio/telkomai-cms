@@ -27,6 +27,7 @@ const blankFacility: FacilityItem = {
   features: [],
   bookingAvailable: false,
   status: "Draft",
+  createdBy: "",
   updatedAt: "2026-05-21",
 }
 

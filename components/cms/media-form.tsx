@@ -29,8 +29,8 @@ const blankMedia: MediaItem = {
   thumbnailUrl: "",
   body: "",
   url: "",
-  published: false,
   status: "Draft",
+  createdBy: "",
   updatedAt: "2026-05-21",
 }
 
@@ -145,7 +145,7 @@ export function MediaForm({ item, mode }: { item?: MediaItem; mode: "new" | "edi
 
               <Field orientation="horizontal">
                 <FieldLabel>Published status</FieldLabel>
-                <Switch defaultChecked={data.published} />
+                <Switch defaultChecked={data.status === "Published"} />
               </Field>
             </FieldGroup>
           </CardContent>
@@ -174,7 +174,7 @@ export function MediaForm({ item, mode }: { item?: MediaItem; mode: "new" | "edi
                   {urlValue || "Not set"}
                 </span>
               )}
-              <span>Published: {data.published ? "Yes" : "No"}</span>
+              <span>Published: {data.status === "Published" ? "Yes" : "No"}</span>
             </div>
           </CardContent>
         </Card>

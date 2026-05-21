@@ -23,6 +23,7 @@ const blankProgram: ProgramItem = {
   sortOrder: 1,
   visible: false,
   status: "Draft",
+  createdBy: "",
   updatedAt: "2026-05-21",
 }
 

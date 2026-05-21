@@ -27,8 +27,8 @@ const blankEvent: EventItem = {
   description: "",
   imageUrl: "",
   featured: false,
-  published: false,
   status: "Draft",
+  createdBy: "",
   updatedAt: "2026-05-21",
 }
 
@@ -102,7 +102,7 @@ export function EventForm({ event, mode }: { event?: EventItem; mode: "new" | "e
                 </Field>
                 <Field orientation="horizontal">
                   <FieldLabel>Published status</FieldLabel>
-                  <Switch defaultChecked={data.published} />
+                  <Switch defaultChecked={data.status === "Published"} />
                 </Field>
               </div>
             </FieldGroup>

@@ -21,7 +21,7 @@ export default function EventsPage() {
             { key: "type", label: "Type" },
             { key: "date", label: "Date" },
             { key: "location", label: "Location" },
-            { key: "published", label: "Published", type: "boolean" },
+            { key: "featured", label: "Featured", type: "boolean" },
             { key: "status", label: "Status", type: "status" },
           ]}
 
