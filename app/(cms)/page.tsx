@@ -1,3 +1,5 @@
+"use client"
+
 import Link from "next/link"
 import {
   CalendarDotsIcon,
@@ -5,7 +7,7 @@ import {
   MapPinAreaIcon,
   NewspaperClippingIcon,
   SquaresFourIcon,
-} from "@phosphor-icons/react/dist/ssr"
+} from "@phosphor-icons/react"
 
 import { PageHeader } from "@/components/cms/page-header"
 import { StatusBadge } from "@/components/cms/status-badge"
@@ -48,7 +50,7 @@ export default function DashboardPage() {
               <CardHeader>
                 <CardTitle>{metric.label}</CardTitle>
                 <CardAction>
-                  <Icon />
+                  <Icon className="size-5 text-muted-foreground" weight="duotone" />
                 </CardAction>
                 <CardDescription>Landing page inventory</CardDescription>
               </CardHeader>

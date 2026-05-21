@@ -126,7 +126,7 @@ export function EntityTable<T extends EditableRecord>({
         <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
           <div className="flex flex-1 flex-col gap-2 sm:flex-row">
             <div className="relative flex-1">
-              <MagnifyingGlassIcon className="pointer-events-none absolute left-2 top-2 text-muted-foreground" />
+              <MagnifyingGlassIcon className="pointer-events-none absolute left-2.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
               <Input
                 className="pl-8"
                 placeholder={`Search ${title.toLowerCase()}...`}

@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { EyeIcon, PencilSimpleIcon } from "@phosphor-icons/react/dist/ssr"
+import { EyeIcon, PencilSimpleIcon } from "@phosphor-icons/react"
 
 import { PageHeader } from "@/components/cms/page-header"
 import { StatusBadge } from "@/components/cms/status-badge"

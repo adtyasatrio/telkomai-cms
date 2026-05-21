@@ -75,7 +75,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                         render={<Link href={item.href} />}
                         isActive={active}
                       >
-                        <Icon weight={active ? "fill" : "regular"} />
+                        <Icon weight={active ? "fill" : "duotone"} />
                         <span className={active ? "text-xs font-semibold" : "text-xs"}>{item.label}</span>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
