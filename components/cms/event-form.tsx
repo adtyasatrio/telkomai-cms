@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import type { EventItem } from "@/lib/cms-data"
+import { DatePicker } from "@/components/cms/date-picker"
 import { ImageUpload } from "@/components/cms/image-upload"
 import { useRouter } from "next/navigation"
 import { PageHeader } from "@/components/cms/page-header"
@@ -77,7 +78,7 @@ export function EventForm({ event, mode }: { event?: EventItem; mode: "new" | "e
                 </Field>
                 <Field>
                   <FieldLabel>Date</FieldLabel>
-                  <Input type="date" defaultValue={data.date} />
+                  <DatePicker defaultValue={data.date} placeholder="Pick event date" />
                 </Field>
                 <Field>
                   <FieldLabel>Location</FieldLabel>

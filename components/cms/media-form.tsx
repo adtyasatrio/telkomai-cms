@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import type { MediaItem } from "@/lib/cms-data"
+import { DatePicker } from "@/components/cms/date-picker"
 import { ImageUpload } from "@/components/cms/image-upload"
 import { useRouter } from "next/navigation"
 import { PageHeader } from "@/components/cms/page-header"
@@ -81,7 +82,7 @@ export function MediaForm({ item, mode }: { item?: MediaItem; mode: "new" | "edi
                 </Field>
                 <Field>
                   <FieldLabel>Meta/date</FieldLabel>
-                  <Input type="date" defaultValue={data.metaDate} />
+                  <DatePicker defaultValue={data.metaDate} placeholder="Pick publish date" />
                 </Field>
               </div>
 

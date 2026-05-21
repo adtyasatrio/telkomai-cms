@@ -145,7 +145,7 @@ export function ImageUpload({
             <button
               type="button"
               onClick={handleClear}
-              className="flex items-center gap-1.5 bg-destructive text-destructive-foreground px-3 py-1.5 text-xs font-medium hover:bg-destructive/90 transition-colors shadow-xs"
+              className="flex items-center gap-1.5 bg-destructive px-3 py-1.5 text-xs font-medium hover:bg-destructive/90 transition-colors shadow-xs"
             >
               <TrashIcon className="size-3.5" />
               Remove
