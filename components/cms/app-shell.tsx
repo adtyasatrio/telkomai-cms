@@ -10,6 +10,8 @@ import {
   NewspaperClippingIcon,
   SquaresFourIcon,
   UsersThreeIcon,
+  UserIcon,
+  SignOutIcon,
 } from "@phosphor-icons/react"
 
 import {
@@ -28,6 +30,13 @@ import {
   SidebarSeparator,
   SidebarTrigger,
 } from "@/components/ui/sidebar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import { ThemeSelector } from "@/components/cms/theme-selector"
 
 const nav = [
@@ -86,16 +95,32 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </SidebarContent>
         <SidebarSeparator />
         <SidebarFooter>
-          <div className="flex items-center gap-2.5 px-2 py-1.5">
-            <div className="relative flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-xs border border-primary/20">
-              AS
-              <span className="absolute bottom-0 right-0 size-2.5 rounded-full bg-emerald-500 ring-2 ring-sidebar" />
-            </div>
-            <div className="flex min-w-0 flex-col group-data-[collapsible=icon]:hidden">
-              <span className="truncate text-xs font-semibold text-sidebar-foreground">Aditya Satrio</span>
-              <span className="truncate text-[10px] text-sidebar-foreground/60">Super Admin</span>
-            </div>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              render={
+                <button className="flex w-full items-center gap-2.5 px-2 py-1.5 text-left rounded-sm hover:bg-sidebar-accent hover:text-sidebar-accent-foreground transition-colors outline-hidden focus-visible:ring-2 focus-visible:ring-sidebar-ring cursor-pointer" />
+              }
+            >
+              <div className="flex size-8 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary font-semibold text-xs border border-primary/20">
+                AS
+              </div>
+              <div className="flex min-w-0 flex-col group-data-[collapsible=icon]:hidden">
+                <span className="truncate text-xs font-semibold text-sidebar-foreground">Aditya Satrio</span>
+                <span className="truncate text-[10px] text-sidebar-foreground/60">Super Admin</span>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" side="top" sideOffset={8} className="w-48">
+              <DropdownMenuItem className="cursor-pointer gap-2" render={<Link href="/profile" />}>
+                <UserIcon className="size-4" />
+                <span>Edit Profile</span>
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem className="cursor-pointer gap-2" variant="destructive">
+                <SignOutIcon className="size-4" />
+                <span>Sign Out</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </SidebarFooter>
       </Sidebar>
       <SidebarInset>

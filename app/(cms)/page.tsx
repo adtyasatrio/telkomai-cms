@@ -38,10 +38,30 @@ import {
 import { activity, events, facilities, landingSections, media, programs } from "@/lib/cms-data"
 
 const metrics = [
-  { label: "Events", value: events.length, icon: CalendarDotsIcon },
-  { label: "Media posts", value: media.length, icon: NewspaperClippingIcon },
-  { label: "Facilities", value: facilities.length, icon: MapPinAreaIcon },
-  { label: "Programs", value: programs.length, icon: ImageSquareIcon },
+  {
+    label: "Events",
+    value: events.length,
+    icon: CalendarDotsIcon,
+    description: "Scheduled workshops & events",
+  },
+  {
+    label: "Media posts",
+    value: media.length,
+    icon: NewspaperClippingIcon,
+    description: "Published news & blog posts",
+  },
+  {
+    label: "Facilities",
+    value: facilities.length,
+    icon: MapPinAreaIcon,
+    description: "AI labs & co-working spaces",
+  },
+  {
+    label: "Programs",
+    value: programs.length,
+    icon: ImageSquareIcon,
+    description: "Active learning & accelerators",
+  },
 ]
 
 const quickActions = [
@@ -109,7 +129,7 @@ export default function DashboardPage() {
                 <CardAction>
                   <Icon className="size-5 text-muted-foreground" weight="duotone" />
                 </CardAction>
-                <CardDescription>Landing page inventory</CardDescription>
+                <CardDescription>{metric.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-semibold">{metric.value}</div>
