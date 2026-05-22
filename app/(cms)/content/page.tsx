@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRightIcon, EyeIcon } from "@phosphor-icons/react"
+import { ArrowRightIcon } from "@phosphor-icons/react"
 
 import { PageHeader } from "@/components/cms/page-header"
 import { StatusBadge } from "@/components/cms/status-badge"
@@ -32,19 +32,16 @@ export default function LandingContentPage() {
                 <p className="text-xs/relaxed text-foreground line-clamp-2">
                   {section.description}
                 </p>
-                <span className="text-xs font-semibold text-foreground">
-                  {section.meta}
-                </span>
               </div>
             </CardContent>
 
-            <CardFooter className="gap-2">
-              <Button variant="outline" render={<Link href={section.href} />}>
-                <EyeIcon data-icon="inline-start" />
-                {section.previewLabel || "Preview"}
-              </Button>
-              <Button size="icon" className="ml-auto" render={<Link href={section.editHref} />} aria-label="Edit section">
-                <ArrowRightIcon />
+            <CardFooter className="flex items-center justify-between gap-2">
+              <span className="text-xs font-semibold text-foreground">
+                {section.meta}
+              </span>
+              <Button render={<Link href={section.editHref} />}>
+                Go to section
+                <ArrowRightIcon data-icon="inline-end" />
               </Button>
             </CardFooter>
           </Card>

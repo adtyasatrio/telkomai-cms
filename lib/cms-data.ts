@@ -35,6 +35,7 @@ export type ProgramItem = {
 export type FacilityItem = {
   id: string
   title: string
+  tab: string
   description: string
   imageUrl: string
   capacity: string
@@ -113,6 +114,12 @@ export const heroContent: HeroContent = {
   updatedAt: "2026-05-22",
 }
 
+export const programsHeader = {
+  eyebrow: "AI Center of Excellence",
+  title: "Telkom AI Center of Excellence Innovation Hub",
+  description: "Telkom presents the AI Center of Excellence (AI CoE) as a strategic research and innovation center to design, test, and ensure AI technology is ready for real-world implementation.",
+}
+
 export const programs: ProgramItem[] = [
   {
     id: "prg-001",
@@ -155,10 +162,17 @@ export const programs: ProgramItem[] = [
   },
 ]
 
+export const facilitiesHeader = {
+  eyebrow: "AI Connect Facilities",
+  title: "Everything You Need to Innovate",
+  description: "Modern and flexible facilities designed to support collaboration, innovation, workshops, community engagement, and AI-driven activities in a productive and inspiring environment.",
+}
+
 export const facilities: FacilityItem[] = [
   {
     id: "fac-001",
     title: "Smart Collaboration Space",
+    tab: "Space",
     description: "Collaboration space for ideation, research, and cross-team work sessions.",
     imageUrl:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80",
@@ -173,6 +187,7 @@ export const facilities: FacilityItem[] = [
   {
     id: "fac-002",
     title: "Workshop & Event Area",
+    tab: "Workshop",
     description: "Activity area for workshops, sharing sessions, and AI community events.",
     imageUrl:
       "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80",
@@ -184,7 +199,55 @@ export const facilities: FacilityItem[] = [
     createdBy: "Admin",
     updatedAt: "2026-05-22",
   },
+  {
+    id: "fac-003",
+    title: "Innovation Showcase",
+    tab: "Showcase",
+    description: "Innovation showcase and AI use case demos ready for stakeholder introductions.",
+    imageUrl: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1600&q=80",
+    capacity: "50 pax",
+    location: "Telkom AI Connect Space",
+    features: ["Interactive displays", "Demo pods", "Lounge"],
+    bookingAvailable: true,
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-22",
+  },
+  {
+    id: "fac-004",
+    title: "Meeting & Presentation Rooms",
+    tab: "Meeting",
+    description: "Meeting and presentation rooms for program reviews, solution pitching, and coordination.",
+    imageUrl: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=1600&q=80",
+    capacity: "15 pax",
+    location: "Telkom AI Connect Space",
+    features: ["Video conferencing", "Whiteboards", "TV Screen"],
+    bookingAvailable: true,
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-22",
+  },
+  {
+    id: "fac-005",
+    title: "Community Activities",
+    tab: "Community",
+    description: "Community activities to bring together talent, academia, industry, and the AI ecosystem.",
+    imageUrl: "https://images.unsplash.com/photo-1497366412874-3415097a27e7?auto=format&fit=crop&w=1600&q=80",
+    capacity: "100 pax",
+    location: "Telkom AI Connect Space",
+    features: ["Open seating", "Cafeteria", "Lounge"],
+    bookingAvailable: false,
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-22",
+  },
 ]
+
+export const eventsHeader = {
+  eyebrow: "Upcoming Events",
+  title: "Meet, build, and test AI ideas with the ecosystem.",
+  description: "",
+}
 
 export const events: EventItem[] = [
   {
@@ -223,7 +286,27 @@ export const events: EventItem[] = [
     createdBy: "Admin",
     updatedAt: "2026-05-22",
   },
+  {
+    id: "evt-003",
+    title: "Predictive Maintenance Demo Day",
+    type: "Showcase",
+    date: "2026-07-04",
+    location: "Innovation Showcase",
+    description: "Industrial AI solution demos with discussions on business impact, data readiness, and implementation opportunities.",
+    imageUrl: "/images/innovation-3.jpg",
+    featured: false,
+    showBannerPopup: false,
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-22",
+  },
 ]
+
+export const mediaHeader = {
+  eyebrow: "Media & Publications",
+  title: "AI knowledge, research signals, and practical resources.",
+  description: "",
+}
 
 export const media: MediaItem[] = [
   {
@@ -250,9 +333,61 @@ export const media: MediaItem[] = [
       "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
     body: "A short video package prepared for landing page feature placement.",
     url: "https://example.com/videos/experience-lab",
-    status: "Draft",
+    status: "Published",
     createdBy: "Rafi A.",
     updatedAt: "2026-05-10",
+  },
+  {
+    id: "med-003",
+    title: "Enterprise AI Readiness Playbook",
+    category: "Article",
+    metaDate: "2026-05-22",
+    description: "A concise framework for assessing data, process, and governance readiness before scaling enterprise AI.",
+    thumbnailUrl: "/images/innovation-3.jpg",
+    body: "Full playbook content goes here...",
+    url: "https://example.com/resources/playbook",
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-22",
+  },
+  {
+    id: "med-004",
+    title: "From Use Case to Production",
+    category: "Press",
+    metaDate: "2026-05-20",
+    description: "A practical discussion on use case validation, business impact measurement, and AI solution deployment.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=1600&q=80",
+    body: "Webinar recording details...",
+    url: "https://example.com/webinars/use-case",
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-20",
+  },
+  {
+    id: "med-005",
+    title: "AI CoE Innovation Showcase",
+    category: "Video",
+    metaDate: "2026-05-15",
+    description: "Short-form videos featuring experiments, solution demos, and collaboration stories from the AI CoE ecosystem.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80",
+    body: "Video playlist...",
+    url: "https://example.com/videos/innovation-showcase",
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-15",
+  },
+  {
+    id: "med-006",
+    title: "AI Governance Starter Kit",
+    category: "Article",
+    metaDate: "2026-05-12",
+    description: "Templates and checklists to help teams define safe, responsible, and operational AI practices.",
+    thumbnailUrl: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=1600&q=80",
+    body: "Starter kit details...",
+    url: "https://example.com/resources/starter-kit",
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-12",
   },
 ]
 
@@ -294,7 +429,7 @@ export const landingSections = [
     status: "Published" as Status, 
     updatedAt: "2026-05-17", 
     href: "/programs", 
-    editHref: "/programs/section", 
+    editHref: "/programs", 
     previewLabel: "View Programs",
     description: "Manage learning cohorts and enterprise studio tracks.",
     meta: `${programs.length} active programs`
@@ -304,7 +439,7 @@ export const landingSections = [
     status: "Published" as Status, 
     updatedAt: "2026-05-14", 
     href: "/facilities", 
-    editHref: "/facilities/section", 
+    editHref: "/facilities", 
     previewLabel: "View Facilities",
     description: "Showcase physical spaces, capacities, and booking info.",
     meta: `${facilities.length} available facilities`
@@ -314,7 +449,7 @@ export const landingSections = [
     status: "Scheduled" as Status, 
     updatedAt: "2026-05-20", 
     href: "/events", 
-    editHref: "/events/section", 
+    editHref: "/events", 
     previewLabel: "View Events",
     description: "Upcoming seminars, workshops, and ecosystem events.",
     meta: `${events.length} upcoming events`
@@ -324,7 +459,7 @@ export const landingSections = [
     status: "Draft" as Status, 
     updatedAt: "2026-05-18", 
     href: "/media", 
-    editHref: "/media/section", 
+    editHref: "/media", 
     previewLabel: "View Media",
     description: "Press releases, articles, and video features.",
     meta: `${media.length} media items`

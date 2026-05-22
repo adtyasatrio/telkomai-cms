@@ -20,6 +20,7 @@ import { PageHeader } from "@/components/cms/page-header"
 const blankFacility: FacilityItem = {
   id: "fac-new",
   title: "",
+  tab: "",
   description: "",
   imageUrl: "",
   capacity: "",
@@ -56,10 +57,16 @@ export function FacilityForm({ facility, mode }: { facility?: FacilityItem; mode
           </CardHeader>
           <CardContent>
             <FieldGroup>
-              <Field>
-                <FieldLabel>Title</FieldLabel>
-                <Input defaultValue={data.title} placeholder="e.g. AI Experience Lab" />
-              </Field>
+              <div className="grid gap-4 md:grid-cols-2">
+                <Field>
+                  <FieldLabel>Title</FieldLabel>
+                  <Input defaultValue={data.title} placeholder="e.g. AI Experience Lab" />
+                </Field>
+                <Field>
+                  <FieldLabel>Tab Name</FieldLabel>
+                  <Input defaultValue={data.tab} placeholder="e.g. Space" />
+                </Field>
+              </div>
               <div className="grid gap-4 md:grid-cols-2">
                 <Field>
                   <FieldLabel>Capacity</FieldLabel>
