@@ -1,6 +1,6 @@
- "use client"
+"use client"
 
-import { Button as ButtonPrimitive } from "@base-ui/react/button"
+import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/lib/utils"
@@ -40,18 +40,63 @@ const buttonVariants = cva(
   }
 )
 
+type RenderProps = {
+  render?: React.ReactElement<any, any>
+}
+
 function Button({
   className,
   variant = "default",
   size = "default",
+  render,
+  children,
+  disabled,
+  type,
+  onClick,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> &
+  VariantProps<typeof buttonVariants> &
+  RenderProps) {
+  const buttonClassName = cn(buttonVariants({ variant, size, className }))
+
+  if (render && React.isValidElement(render)) {
+    const renderProps = render.props as Record<string, any>
+
+    const mergedOnClick = (event: React.MouseEvent<HTMLElement>) => {
+      if (disabled) {
+        event.preventDefault()
+        event.stopPropagation()
+        return
+      }
+
+      onClick?.(event as React.MouseEvent<HTMLButtonElement>)
+      renderProps.onClick?.(event)
+    }
+
+    return React.cloneElement(
+      render as React.ReactElement<any, any>,
+      {
+        ...renderProps,
+        ...props,
+        className: cn(buttonClassName, renderProps.className),
+        "aria-disabled": disabled || renderProps["aria-disabled"],
+        tabIndex: disabled ? -1 : renderProps.tabIndex,
+        onClick: mergedOnClick,
+      } as any,
+      children ?? renderProps.children
+    )
+  }
+
   return (
-    <ButtonPrimitive
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
+    <button
+      type={type ?? "button"}
+      className={buttonClassName}
+      disabled={disabled}
+      onClick={onClick}
       {...props}
-    />
+    >
+      {children}
+    </button>
   )
 }
 
