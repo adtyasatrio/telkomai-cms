@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { MegaphoneSimpleIcon } from "@phosphor-icons/react"
 
 import { EditorHeader } from "@/components/cms/editor-actions"
 import { EntityTable } from "@/components/cms/entity-table"
@@ -23,12 +24,24 @@ export default function EventsPage() {
           description="Event list with type, publication, and popup banner controls."
           items={items}
           columns={[
-            { key: "title", label: "Title" },
+            {
+              key: "title",
+              label: "Title",
+              render: (value, row) => (
+                <div className="flex items-center gap-2">
+                  <span>{String(value)}</span>
+                  {row.showBannerPopup ? (
+                    <span title="Featured in popup banner">
+                      <MegaphoneSimpleIcon className="size-3.5 shrink-0 text-primary" weight="fill" />
+                    </span>
+                  ) : null}
+                </div>
+              ),
+            },
             { key: "type", label: "Type" },
             { key: "date", label: "Date" },
             { key: "location", label: "Location" },
             { key: "featured", label: "Featured", type: "boolean" },
-            { key: "showBannerPopup", label: "Popup Banner", type: "boolean" },
             { key: "status", label: "Status", type: "status" },
           ]}
           filters={[

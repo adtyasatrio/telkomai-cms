@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import type { ReactNode } from "react"
 import { useMemo, useState } from "react"
 import {
   CopyIcon,
@@ -70,6 +71,7 @@ type Column<T> = {
   key: keyof T
   label: string
   type?: "status" | "boolean" | "list"
+  render?: (value: T[keyof T], row: T) => ReactNode
 }
 
 type FilterValue = string | { label: string; value: string }
@@ -243,11 +245,15 @@ export function EntityTable<T extends EditableRecord>({
             <TableBody>
               {paginatedItems.map((row) => (
                 <TableRow key={String(row.id)}>
-                  {columns.map((column) => (
-                    <TableCell key={String(column.key)}>
-                      <CellValue value={row[column.key]} type={column.type} />
-                    </TableCell>
-                  ))}
+                {columns.map((column) => (
+                  <TableCell key={String(column.key)}>
+                      {column.render ? (
+                        column.render(row[column.key], row)
+                      ) : (
+                        <CellValue value={row[column.key]} type={column.type} />
+                      )}
+                  </TableCell>
+                ))}
                   <TableCell className="text-right">
                     <DropdownMenu>
                       <DropdownMenuTrigger render={<Button variant="ghost" size="icon-sm" />}>
