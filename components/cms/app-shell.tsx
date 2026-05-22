@@ -14,6 +14,7 @@ import {
   PlusIcon,
   SquaresFourIcon,
   UsersThreeIcon,
+  HandshakeIcon,
   UserIcon,
   SignOutIcon,
 } from "@phosphor-icons/react"
@@ -50,7 +51,7 @@ const nav = [
   { label: "Facilities", href: "/facilities", icon: MapPinAreaIcon },
   { label: "Events", href: "/events", icon: CalendarDotsIcon },
   { label: "Media", href: "/media", icon: NewspaperClippingIcon },
-  { label: "Partners", href: "/partners", icon: UsersThreeIcon },
+  { label: "Partners", href: "/partners", icon: HandshakeIcon },
   { label: "Footer / Contact", href: "/footer", icon: UsersThreeIcon },
 ]
 
