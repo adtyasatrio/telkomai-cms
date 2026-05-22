@@ -55,6 +55,13 @@ export type EventItem = {
   description: string
   imageUrl: string
   featured: boolean
+  showBannerPopup: boolean
+  bannerPopupId?: string
+  bannerCtaLabel?: string
+  bannerCtaUrl?: string
+  bannerStartAt?: string
+  bannerEndAt?: string
+  bannerStatus?: "Draft" | "Published" | "Scheduled" | "Hidden"
   status: Status
   createdBy: string
   updatedAt: string
@@ -189,6 +196,13 @@ export const events: EventItem[] = [
     imageUrl:
       "https://images.unsplash.com/photo-1515187029135-18ee286d815b?q=80&w=1200&auto=format&fit=crop",
     featured: true,
+  showBannerPopup: true,
+  bannerPopupId: "ai-connect-future-lab-2026-06-18-v1",
+  bannerCtaLabel: "Detail",
+  bannerCtaUrl: "/events/detail",
+  bannerStartAt: "2026-06-10",
+    bannerEndAt: "2026-06-18",
+    bannerStatus: "Published",
     status: "Scheduled",
     createdBy: "Dina P.",
     updatedAt: "2026-05-20",
@@ -203,6 +217,7 @@ export const events: EventItem[] = [
     imageUrl:
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop",
     featured: false,
+    showBannerPopup: false,
     status: "Published",
     createdBy: "Maya S.",
     updatedAt: "2026-05-16",

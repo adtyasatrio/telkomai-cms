@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
+import { useMemo, useState } from "react"
 import {
   CopyIcon,
   DotsThreeIcon,
@@ -36,8 +36,6 @@ import {
   PaginationEllipsis,
   PaginationItem,
   PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
 } from "@/components/ui/pagination"
 import {
   Dialog,
@@ -74,6 +72,8 @@ type Column<T> = {
   type?: "status" | "boolean" | "list"
 }
 
+type FilterValue = string | { label: string; value: string }
+
 export function EntityTable<T extends EditableRecord>({
   title,
   description,
@@ -91,7 +91,7 @@ export function EntityTable<T extends EditableRecord>({
   description: string
   items: T[]
   columns: Column<T>[]
-  filters: { key: keyof T; label: string; values: string[] }[]
+  filters: { key: keyof T; label: string; values: FilterValue[] }[]
   searchKeys: (keyof T)[]
   emptyTitle: string
   addLabel: string
@@ -107,11 +107,6 @@ export function EntityTable<T extends EditableRecord>({
 
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(5)
-
-  // Reset pagination on search query or filter changes
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [query, filter])
 
   const filtered = useMemo(() => {
     return rows.filter((row) => {
@@ -135,13 +130,6 @@ export function EntityTable<T extends EditableRecord>({
   const paginatedItems = useMemo(() => {
     return filtered.slice(startIndex, startIndex + pageSize)
   }, [filtered, startIndex, pageSize])
-
-  // Handle out of bounds currentPage
-  useEffect(() => {
-    if (currentPage > totalPages) {
-      setCurrentPage(totalPages)
-    }
-  }, [currentPage, totalPages])
 
   const getPageNumbers = () => {
     const pages: (number | "ellipsis")[] = []
@@ -193,10 +181,19 @@ export function EntityTable<T extends EditableRecord>({
                 className="pl-8"
                 placeholder={`Search ${title.toLowerCase()}...`}
                 value={query}
-                onChange={(event) => setQuery(event.target.value)}
+                onChange={(event) => {
+                  setQuery(event.target.value)
+                  setCurrentPage(1)
+                }}
               />
             </div>
-            <Select value={filter} onValueChange={(value) => setFilter(value ?? "all")}>
+            <Select
+              value={filter}
+              onValueChange={(value) => {
+                setFilter(value ?? "all")
+                setCurrentPage(1)
+              }}
+            >
               <SelectTrigger className="w-full sm:w-44">
                 <FunnelIcon data-icon="inline-start" />
                 <SelectValue placeholder="Filter" />
@@ -205,11 +202,15 @@ export function EntityTable<T extends EditableRecord>({
                 <SelectGroup>
                   <SelectItem value="all">All records</SelectItem>
                   {filters.flatMap((item) =>
-                    item.values.map((value) => (
-                      <SelectItem key={`${String(item.key)}-${value}`} value={value}>
-                        {value}
-                      </SelectItem>
-                    ))
+                    item.values.map((value) => {
+                      const option = typeof value === "string" ? { label: value, value } : value
+
+                      return (
+                        <SelectItem key={`${String(item.key)}-${option.value}`} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      )
+                    })
                   )}
                 </SelectGroup>
               </SelectContent>
