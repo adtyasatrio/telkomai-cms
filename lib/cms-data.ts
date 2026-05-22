@@ -68,6 +68,15 @@ export type EventItem = {
   updatedAt: string
 }
 
+export type PartnerItem = {
+  id: string
+  name: string
+  logoUrl: string
+  status: Status
+  createdBy: string
+  updatedAt: string
+}
+
 export type MediaItem = {
   id: string
   title: string
@@ -391,6 +400,33 @@ export const media: MediaItem[] = [
   },
 ]
 
+export const partners: PartnerItem[] = [
+  {
+    id: "part-001",
+    name: "Telkom Indonesia",
+    logoUrl: "/images/logo-telkomindonesia.png",
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-22",
+  },
+  {
+    id: "part-002",
+    name: "Telkomsel",
+    logoUrl: "/images/logo-telkomsel.png",
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-22",
+  },
+  {
+    id: "part-003",
+    name: "Telkom University",
+    logoUrl: "/images/logo-telkomuniversity.png",
+    status: "Published",
+    createdBy: "Admin",
+    updatedAt: "2026-05-22",
+  },
+]
+
 export const footerContent: FooterContent = {
   description:
     "Telkom AI Center of Excellence brings together talent, facilities, and programs to accelerate trusted AI adoption.",
@@ -455,14 +491,24 @@ export const landingSections = [
     meta: `${events.length} upcoming events`
   },
   { 
-    title: "Media Library", 
-    status: "Draft" as Status, 
-    updatedAt: "2026-05-18", 
+    title: "Media & Resources", 
+    status: "Published" as Status, 
+    updatedAt: "2026-05-10", 
     href: "/media", 
     editHref: "/media", 
     previewLabel: "View Media",
-    description: "Press releases, articles, and video features.",
+    description: "Manage published articles, webinars, and resources.",
     meta: `${media.length} media items`
+  },
+  { 
+    title: "Partners", 
+    status: "Published" as Status, 
+    updatedAt: "2026-05-22", 
+    href: "/partners", 
+    editHref: "/partners", 
+    previewLabel: "View Partners",
+    description: "Manage partner logos and collaborations.",
+    meta: `${partners.length} active partners`
   },
   { 
     title: "Footer / Contact", 

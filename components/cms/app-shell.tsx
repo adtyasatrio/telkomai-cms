@@ -11,6 +11,7 @@ import {
   LayoutIcon,
   MapPinAreaIcon,
   NewspaperClippingIcon,
+  PlusIcon,
   SquaresFourIcon,
   UsersThreeIcon,
   UserIcon,
@@ -49,6 +50,7 @@ const nav = [
   { label: "Facilities", href: "/facilities", icon: MapPinAreaIcon },
   { label: "Events", href: "/events", icon: CalendarDotsIcon },
   { label: "Media", href: "/media", icon: NewspaperClippingIcon },
+  { label: "Partners", href: "/partners", icon: UsersThreeIcon },
   { label: "Footer / Contact", href: "/footer", icon: UsersThreeIcon },
 ]
 
